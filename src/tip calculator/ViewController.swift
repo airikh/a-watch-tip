@@ -45,56 +45,83 @@ class ViewController: UIViewController {
     //@IBAction func billNumChange(sender: AnyObject) {
         //tallyBill(billNum)
     //}
+    @IBAction func billNumChange(sender: AnyObject) {
+        var currentString = Double(billText.text!)
+        if billText.text == ""{
+            currentString = 1000
+        }
+        
+        let formatter = NSNumberFormatter()
+        formatter.numberStyle = NSNumberFormatterStyle.CurrencyStyle
+        formatter.locale = NSLocale(localeIdentifier: "en_US")
+        
+        let numberFromField:Double = currentString!/100
+        
+        billText.text = String(numberFromField)
+        //
+        print("$%$%$%$ ",currentString )
+    }
     
     @IBAction func splitNumChange(sender: AnyObject) {
-        let splitNum = Int(splitNumText.text!)
+        var splitNum = Int(splitNumText.text!)
+        
+        if splitNumText.text == ""{
+            splitNum = 1
+            //splitNumText.text = String(splitNum)
+        }
+        
         splitNumLabel.text = "÷ \(splitNum!)"
         
         tallyBill(splitNum!)
+        print(":::::splitNumCHange splitNum ", splitNum, "billNum ",billNum )
+        
     }
     
     @IBAction func tipNumChange(sender: AnyObject) {
-        let tipNum = Int(tipNumText.text!)!
-        tallyBill(tipNum)
+        var tipNum = 20
+        
+        if tipNumText.text == ""{
+            tipNum = 20
+            tipNumText.text = String(tipNum)
+        }
+        else{
+            let tipNum = Int(tipNumText.text!)!
+            tallyBill(tipNum)
+        }
         
     }
     
     func tallyBill(sender: AnyObject){
-        let splitNum = Double(splitNumText.text!)
+        var splitNum = Double(splitNumText.text!)
+        
+        if splitNumText.text == ""{
+            splitNum = 1
+        }
         let billNum = Double(billText.text!)!
-        let tipNum = Double(tipNumText.text!)!
+        var tipNum = Double(tipNumText.text!)!
+        
+        if tipNumText.text == "" {
+            tipNum = 20
+            print("tip number = 0")
+        }
         
         billNumSplit = (billNum / splitNum!)
-        let billSplitTot = (round(100*billNumSplit)/100)
+        let billSplitTot = (ceil(100*billNumSplit)/100)
         
         billLabel.text = String(billSplitTot)
         
         let tipNumTotal = (0.01 * (tipNum))
         
         tipTotal = tipNumTotal * billSplitTot
-        let tipRoundTot = (round(100*tipTotal)/100)
+        let tipRoundTot = (ceil(100*tipTotal)/100)
         
         tipNumLabel.text = String(tipRoundTot)
         
         let billSplitTotalNum = billSplitTot + tipRoundTot
         billSplitTotalLabel.text = String(billSplitTotalNum)
-        
     }
     
-    @IBAction func billNumChange(sender: AnyObject) {
-        let currentString = Double(billText.text!)
     
-        let formatter = NSNumberFormatter()
-        formatter.numberStyle = NSNumberFormatterStyle.CurrencyStyle
-        formatter.locale = NSLocale(localeIdentifier: "en_US")
-        
-        let numberFromField:Double = currentString!/100
-        let newText = formatter.stringFromNumber(numberFromField)
-        
-        billText.text = String(numberFromField)
-        //
-        print("$%$%$%$ ",newText )
-    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -104,7 +131,7 @@ class ViewController: UIViewController {
         billLabel.text = String(billNumSplit)
         
         tipNumText.text = String(tipNum)
-        tipNumLabel.text = String(tipTotal)
+        //tipNumLabel.text = String(tipTotal)
         
         billSplitTotalLabel.text = String(billSplitTotalNum)
         

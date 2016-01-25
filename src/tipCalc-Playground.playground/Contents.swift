@@ -30,21 +30,21 @@ let y = Double(round(100*x)/100)
 //(0.01 * Double(tipNum)) 
 
 let splitNum:Double = 2
-let billNum:Double = 12.35
+let billNum:Double = 1234
 let tipNum:Double = 1.236
+var billNumSplit:Double = 10.00
 
-let billNumSplit:Double = (billNum / splitNum)
-let billSplitTot = (round(100*billNumSplit)/100)
+var tipTotal:Double = 2.00
 
-//billLabel.text = String(billNumSplit)
+//let billTotalNum:Double = 12.00
+let billSplitTotalNum:Double = 12.00
 
-let tipNumTotal = (0.01 * Double(tipNum))
-let tipTotal = tipNumTotal * billNumSplit
+////
 
-//tipNumLabel.text = String(tipTotal)
+//self.tap()
 
-let billSplitTotalNum = billNumSplit + tipTotal
-//billSplitTotalLabel.text = String(billSplitTotalNum)
+var billNum: String = ""
+
 
 ///
 
