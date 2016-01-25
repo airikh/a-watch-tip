@@ -43,27 +43,35 @@ let billSplitTotalNum:Double = 12.00
 
 //self.tap()
 
-var billNum: String = ""
-
+//var billNum: String = ""
+print(String(format: "hex string: %X", 123456))
+print(String(format: "a float number: %.5f", 1.0321))
 
 ///
 
-//////// this will format the currency - DUPLICATE -
+var currentString2:Double = 12.00
+//if billText.text == ""{
+//  currentString2 = 1000
+//}
 
-func formatCurrency(string string: Double) {
-    print("this is the string", string)
+
+
+    let formatter2 = NSNumberFormatter()
+    formatter2.numberStyle = NSNumberFormatterStyle.CurrencyStyle
+    formatter2.locale = NSLocale(localeIdentifier: "en_US")
+    formatter2.stringFromNumber(currentString2)
+print("****** currentString", currentString2)
+
+let formatter3 = NSNumberFormatter()
+formatter3.minimumFractionDigits = 2
+var currStr = (formatter3.stringFromNumber(10.00)!)
+
+
+
+    let numberFromField2:Double = currentString2/100
     
-    var currentString:Double = 123
-    
-    let formatter = NSNumberFormatter()
-    formatter.numberStyle = NSNumberFormatterStyle.CurrencyStyle
-    formatter.locale = NSLocale(localeIdentifier: "en_US")
-    
-    let numberFromField:Double = currentString/100
-    let newText = formatter.stringFromNumber(numberFromField)
-    
-    //billText.text = String(numberFromField)
-    //currentString = formatter.stringFromNumber(numberFromField)!
-    
-}
+    //billText.text = String(numberFromField2)
+    print("****** if statement worked", numberFromField2)
+
+
 
