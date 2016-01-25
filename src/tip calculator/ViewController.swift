@@ -42,9 +42,9 @@ class ViewController: UIViewController {
     // billTotalLabel.text     billSplitTotalLabel.text
     // billTotalNum             billSplitTotalNum
     
-    @IBAction func billNumChange(sender: AnyObject) {
-        tallyBill(billNum)
-    }
+    //@IBAction func billNumChange(sender: AnyObject) {
+        //tallyBill(billNum)
+    //}
     
     @IBAction func splitNumChange(sender: AnyObject) {
         let splitNum = Int(splitNumText.text!)
@@ -62,24 +62,39 @@ class ViewController: UIViewController {
     func tallyBill(sender: AnyObject){
         let splitNum = Double(splitNumText.text!)
         let billNum = Double(billText.text!)!
-        let tipNum = Int(tipNumText.text!)!
+        let tipNum = Double(tipNumText.text!)!
         
         billNumSplit = (billNum / splitNum!)
-        billLabel.text = String(billNumSplit)
+        let billSplitTot = (round(100*billNumSplit)/100)
         
-        let tipNumTotal = (0.01 * Double(tipNum))
+        billLabel.text = String(billSplitTot)
         
-        tipTotal = tipNumTotal * billNumSplit
-        tipNumLabel.text = String(tipTotal)
+        let tipNumTotal = (0.01 * (tipNum))
         
-        let billSplitTotalNum = billNumSplit + tipTotal
+        tipTotal = tipNumTotal * billSplitTot
+        let tipRoundTot = (round(100*tipTotal)/100)
+        
+        tipNumLabel.text = String(tipRoundTot)
+        
+        let billSplitTotalNum = billSplitTot + tipRoundTot
         billSplitTotalLabel.text = String(billSplitTotalNum)
         
-        // end
-        print("::: tally bill :::::::::", splitNum, billNum)
-        print("::: tally tip :::::::::", tipNumTotal, tipNum, billNumSplit)
     }
     
+    @IBAction func billNumChange(sender: AnyObject) {
+        let currentString = Double(billText.text!)
+    
+        let formatter = NSNumberFormatter()
+        formatter.numberStyle = NSNumberFormatterStyle.CurrencyStyle
+        formatter.locale = NSLocale(localeIdentifier: "en_US")
+        
+        let numberFromField:Double = currentString!/100
+        let newText = formatter.stringFromNumber(numberFromField)
+        
+        billText.text = String(numberFromField)
+        //
+        print("$%$%$%$ ",newText )
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
