@@ -115,14 +115,14 @@ class ViewController: UIViewController {
         }
         
         billNumSplit = (billNum / splitNum!)
-        let billSplitTot = (ceil(100*billNumSplit)/100)
+        let billSplitTot = (round(100*billNumSplit)/100)
         
         billLabel.text = (formatter.stringFromNumber(billSplitTot)!)
         
         let tipNumTotal = (0.01 * (tipNum))
         
         tipTotal = tipNumTotal * billSplitTot
-        let tipRoundTot = (ceil(100*tipTotal)/100)
+        let tipRoundTot = (round(100*tipTotal)/100)
         tipNumLabel.text = (formatter.stringFromNumber(tipRoundTot)!)
         
         let billSplitTotalNum = billSplitTot + tipRoundTot
