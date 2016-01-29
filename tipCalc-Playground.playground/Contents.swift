@@ -75,3 +75,55 @@ var currStr = (formatter3.stringFromNumber(10.00)!)
 
 
 
+///// watch
+
+
+let pickerViewData = Array(0...39)     // contents will be 0, 1, 2, 3...59, change to whatever you want
+let pickerViewRows = 10_000            // any big number
+let pickerViewMiddle = ((pickerViewRows / pickerViewData.count) / 2) * pickerViewData.count
+//
+
+//
+//        let item1 = WKPickerItem()
+//        item1.title = "1"
+//
+//        let item2 = WKPickerItem()
+//        item2.title = "2"
+//
+//        let item3 = WKPickerItem()
+//        item3.title = "3"
+//
+//        let itemsArray = [item1, item2, item3]
+/////
+//        var i=0
+//        let itemsArray = [ ]
+//
+//        while i < itemsArray.count{
+//            print(itemsArray[i])
+//            i++
+//        }
+//billCents.setItems(pickerViewData)
+
+// Configure interface objects here.
+
+//        self.picker.delegate = self
+//        self.picker.dataSource = self
+//        let initialValue = 0
+//        if let row = rowForValue(initialValue) {
+//            self.picker.selectRow(row, inComponent: 0, animated: false)
+//        }
+
+
+//NSMutableArray *items = [[NSMutableArray alloc] initWithCapacity:101];
+//for(int ctr=0; ctr <= 100; ctr++) {
+//    WKPickerItem *item = [[WKPickerItem alloc] init];
+//    NSString *title = [NSString stringWithFormat:@"Title %d", ctr];
+//    item.title = title;
+//    [items addObject:item];
+//}
+//return [items copy];
+
+
+
+
+

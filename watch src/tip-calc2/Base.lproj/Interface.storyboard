@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder.WatchKit.Storyboard" version="3.0" toolsVersion="9531" systemVersion="15C50" targetRuntime="watchKit" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="AgC-eL-Hgc">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBWatchKitPlugin" version="9515"/>
+    </dependencies>
+    <scenes>
+        <!--Interface Controller-->
+        <scene sceneID="aou-V4-d1y">
+            <objects>
+                <controller id="AgC-eL-Hgc" customClass="InterfaceController" customModule="tip_calc2" customModuleProvider="target">
+                    <items>
+                        <group width="1" height="45" alignment="left" id="V9h-FP-Zgo">
+                            <items>
+                                <label width="0.10000000000000001" alignment="left" text="$" id="TEc-pr-8b2"/>
+                                <picker width="0.40000000000000002" widthAdjustment="1" height="40" alignment="left" style="sequence" focusStyle="stack" indicatorMode="shownWhileFocused" id="yXn-xG-v3K">
+                                    <connections>
+                                        <action selector="billDollar:" destination="AgC-eL-Hgc" id="aGF-HL-QVr"/>
+                                    </connections>
+                                </picker>
+                                <label width="0.10000000000000001" alignment="left" verticalAlignment="bottom" text="." textAlignment="center" id="3gD-Rw-4nb"/>
+                                <picker width="0.29999999999999999" height="40" alignment="left" accessibilityLabel="dollar" accessibilityValue="10" focusStyle="stack" indicatorMode="shownWhileFocused" id="Bjp-Np-JtO">
+                                    <connections>
+                                        <action selector="billCents:" destination="AgC-eL-Hgc" id="EmE-9Q-SrE"/>
+                                    </connections>
+                                </picker>
+                            </items>
+                        </group>
+                        <group width="1" height="44" alignment="left" id="I4T-Hi-ymk">
+                            <items>
+                                <picker width="0.33333299999999999" widthAdjustment="1" height="40" alignment="left" id="aWP-2k-2yY"/>
+                                <label width="25" height="41.5" alignment="left" text="%" id="tRL-ix-sn2"/>
+                                <label width="56" height="41.5" alignment="left" text="123.67" textAlignment="right" id="BkF-q2-B7D">
+                                    <fontDescription key="font" style="UICTFontTextStyleBody"/>
+                                </label>
+                            </items>
+                        </group>
+                        <separator alignment="left" id="UnM-mh-IA6"/>
+                        <group width="1" alignment="left" id="GuB-fg-rGa">
+                            <items>
+                                <label width="0.10000000000000001" height="39.5" alignment="left" text="÷" id="b2D-wh-3pf"/>
+                                <picker width="37.5" height="40" alignment="left" id="Kb0-rb-RYx"/>
+                                <label width="75" height="41.5" alignment="left" text="123.67" textAlignment="right" id="sra-s3-vTI"/>
+                            </items>
+                        </group>
+                    </items>
+                    <connections>
+                        <outlet property="billCents" destination="Bjp-Np-JtO" id="VXg-yn-Nnv"/>
+                        <outlet property="billDollar" destination="yXn-xG-v3K" id="qzJ-5K-txT"/>
+                        <outlet property="splitTotalLabel" destination="TEc-pr-8b2" id="zVe-Hg-P3g"/>
+                    </connections>
+                </controller>
+            </objects>
+            <point key="canvasLocation" x="220" y="335"/>
+        </scene>
+        <!--Static Notification Interface Controller-->
+        <scene sceneID="AEw-b0-oYE">
+            <objects>
+                <notificationController id="YCC-NB-fut">
+                    <items>
+                        <label alignment="left" text="Alert Label" id="IdU-wH-bcW"/>
+                    </items>
+                    <notificationCategory key="notificationCategory" identifier="myCategory" id="JfB-70-Muf"/>
+                    <connections>
+                        <outlet property="notificationAlertLabel" destination="IdU-wH-bcW" id="JKC-fr-R95"/>
+                        <segue destination="4sK-HA-Art" kind="relationship" relationship="dynamicNotificationInterface" id="kXh-Jw-8B1"/>
+                    </connections>
+                </notificationController>
+            </objects>
+            <point key="canvasLocation" x="220" y="643"/>
+        </scene>
+        <!--Notification Controller-->
+        <scene sceneID="ZPc-GJ-vnh">
+            <objects>
+                <controller id="4sK-HA-Art" customClass="NotificationController" customModule="tip_calc2" customModuleProvider="target"/>
+            </objects>
+            <point key="canvasLocation" x="468" y="643"/>
+        </scene>
+    </scenes>
+</document>
