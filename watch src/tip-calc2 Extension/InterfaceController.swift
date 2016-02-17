@@ -23,11 +23,11 @@ class IntegerPickerItem: WKPickerItem {
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
 }
 
 
 class CentsPickerItem: IntegerPickerItem {
+    
     override init(intValue: Int) {
         super.init(intValue: intValue)
         self.title = String(format: "%02d", intValue)
@@ -65,7 +65,6 @@ class TipAndSplitCalculator {
     var totalPerPerson: Double {
         return (self.billAmount + self.tipAmount) / Double(self.numSplitting)
     }
-    
 }
 
 
@@ -88,6 +87,7 @@ class InterfaceController: WKInterfaceController {
     @IBOutlet var totalPerPersonLabelOutlet: WKInterfaceLabel!
     
     func updateAmountLabels() {
+        // TODO: internationalize currency symbols and periods/commas
         tipAmoutLabelOutlet.setText(String(format: "$%.2f", calculator.tipAmount))
         totalPerPersonLabelOutlet.setText(String(format: "$%.2f", calculator.totalPerPerson))
     }
@@ -136,5 +136,4 @@ class InterfaceController: WKInterfaceController {
         // This method is called when watch view controller is no longer visible
         super.didDeactivate()
     }
-
 }
