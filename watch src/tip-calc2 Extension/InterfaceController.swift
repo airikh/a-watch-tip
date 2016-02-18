@@ -39,7 +39,6 @@ class CentsPickerItem: IntegerPickerItem {
 }
 
 
-// TODO: test floating point accuracy (see http://stackoverflow.com/questions/28421176/which-swift-datatype-do-i-use-for-currency)
 class TipAndSplitCalculator {
     
     var billDollars: Int
@@ -70,8 +69,12 @@ class TipAndSplitCalculator {
 
 class InterfaceController: WKInterfaceController {
     
-    // TODO: persist initial picker values
-    var calculator = TipAndSplitCalculator(billDollars: 10, billCents: 0, tipPercent: 15, numSplitting: 1)
+    // Define variables for tracking the current index of the pickers we want to persist values for.
+    var billDollarsPickerIndex: Int
+    var billCentsPickerIndex: Int
+    var tipPercentPickerIndex: Int
+    
+    var calculator: TipAndSplitCalculator
     
     let billDollarsPickerItems = Array(0...999).map({IntegerPickerItem(intValue: $0)})
     let billCentsPickerItems = Array(0...99).map({CentsPickerItem(intValue: $0)})
@@ -87,7 +90,7 @@ class InterfaceController: WKInterfaceController {
     @IBOutlet var totalPerPersonLabelOutlet: WKInterfaceLabel!
     
     func updateAmountLabels() {
-        // TODO: internationalize currency symbols and periods/commas
+        // TODO: internationalize currency symbols and periods/commas?
         tipAmoutLabelOutlet.setText(String(format: "$%.2f", calculator.tipAmount))
         totalPerPersonLabelOutlet.setText(String(format: "$%.2f", calculator.totalPerPerson))
     }
@@ -95,16 +98,19 @@ class InterfaceController: WKInterfaceController {
     @IBAction func billDollarsPickerAction(index: Int) {
         calculator.billDollars = billDollarsPickerItems[index].intValue
         updateAmountLabels()
+        billDollarsPickerIndex = index
     }
     
     @IBAction func billCentsPickerAction(index: Int) {
         calculator.billCents = billCentsPickerItems[index].intValue
         updateAmountLabels()
+        billCentsPickerIndex = index
     }
     
     @IBAction func tipPercentPickerAction(index: Int) {
         calculator.tipPercent = tipPercentPickerItems[index].intValue
         updateAmountLabels()
+        tipPercentPickerIndex = index
     }
     
     @IBAction func numSplittingPickerAction(index: Int) {
@@ -112,19 +118,39 @@ class InterfaceController: WKInterfaceController {
         updateAmountLabels()
     }
     
+    override init() {
+        
+        // Read in the persistent data.
+        let defaults = NSUserDefaults.standardUserDefaults()
+        billDollarsPickerIndex = defaults.integerForKey("billDollarsPickerIndex")
+        billCentsPickerIndex = defaults.integerForKey("billCentsPickerIndex")
+        tipPercentPickerIndex = defaults.integerForKey("tipPercentPickerIndex")
+        
+        // Initialize the calculator, using the persistent data to index the picker items.
+        calculator = TipAndSplitCalculator(
+            billDollars: billDollarsPickerItems[billDollarsPickerIndex].intValue,
+            billCents: billCentsPickerItems[billCentsPickerIndex].intValue,
+            tipPercent: tipPercentPickerItems[tipPercentPickerIndex].intValue,
+            numSplitting: numSplittingPickerItems[0].intValue  // Always defaults to 1 person
+        )
+        
+        super.init()
+    }
+    
     override func awakeWithContext(context: AnyObject?) {
-        super.awakeWithContext(context)
         // Configure interface objects here.
+        super.awakeWithContext(context)
         
         billDollarsPickerOutlet.setItems(billDollarsPickerItems)
         billCentsPickerOutlet.setItems(billCentsPickerItems)
         tipPercentPickerOutlet.setItems(tipPercentPickerItems)
         numSplittingPickerOutlet.setItems(numSplittingPickerItems)
         
-        billDollarsPickerOutlet.setSelectedItemIndex(10)
-        billCentsPickerOutlet.setSelectedItemIndex(0)
-        tipPercentPickerOutlet.setSelectedItemIndex(15)
-        numSplittingPickerOutlet.setSelectedItemIndex(0)
+        // Set the initial indicies using the persistent data.
+        billDollarsPickerOutlet.setSelectedItemIndex(billDollarsPickerIndex)
+        billCentsPickerOutlet.setSelectedItemIndex(billCentsPickerIndex)
+        tipPercentPickerOutlet.setSelectedItemIndex(tipPercentPickerIndex)
+        numSplittingPickerOutlet.setSelectedItemIndex(0)  // Always defaults to 1 person
     }
 
     override func willActivate() {
@@ -135,5 +161,11 @@ class InterfaceController: WKInterfaceController {
     override func didDeactivate() {
         // This method is called when watch view controller is no longer visible
         super.didDeactivate()
+        
+        // Store the new values of the persistent data.
+        let defaults = NSUserDefaults.standardUserDefaults()
+        defaults.setInteger(billDollarsPickerIndex, forKey: "billDollarsPickerIndex")
+        defaults.setInteger(billCentsPickerIndex, forKey: "billCentsPickerIndex")
+        defaults.setInteger(tipPercentPickerIndex, forKey: "tipPercentPickerIndex")
     }
 }
