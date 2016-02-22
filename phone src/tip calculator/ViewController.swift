@@ -52,54 +52,55 @@ class ViewController: UIViewController {
     //}
     
     @IBAction func billTextChange(sender: AnyObject) {
-        currentString = Double(billText.text!)!
-        //
-        tallyBill(currentString)
-        print("$%$%$%$ ",currentString )
+        if let currentString = Double(billText.text!) {
+            tallyBill()
+            print("$%$%$%$ ", currentString)
+        }
     }
     
     @IBAction func billNumChange(sender: AnyObject) {
-        if billText.text == ""{
+        if billText.text == "" {
             let currentString = (formatter.stringFromNumber(10.00)!)
             billText.text = String(currentString)
+            tallyBill()
         }
     }
     
     @IBAction func splitNumTextChange(sender: AnyObject) {
-        let splitNum = Int(splitNumText.text!)
-        
-        splitNumLabel.text = "÷ \(splitNum!)"
-        tallyBill(splitNum!)
-        
-        print(":::::splitNumCHange splitNum ", splitNum, "billNum ",billNum )
-        
+        if let splitNum = Int(splitNumText.text!) {
+            splitNumLabel.text = "÷ \(splitNum)"
+            tallyBill()
+            
+            print(":::::splitNumCHange splitNum ", splitNum, "billNum ", billNum )
+        }
     }
+    
     @IBAction func splitNumChange(sender: AnyObject) {
-        
-        if splitNumText.text == ""{
+        if splitNumText.text == "" {
             splitNum = 1
             splitNumText.text = String(splitNum)
             splitNumLabel.text = ""
+            tallyBill()
         }
     }
     
     @IBAction func tipNumTextChange(sender: AnyObject) {
-        let tipNum = Int(tipNumText.text!)!
-        
-        tallyBill(tipNum)
-        print ("tipNumChange")
-        
+        if let newTipNum = Int(tipNumText.text!) {
+            tipNum = newTipNum
+            tallyBill()
+            print ("tipNumChange")
+        }
     }
+    
     @IBAction func tipNumChange(sender: AnyObject) {
-        
         if tipNumText.text == ""{
             tipNum = 20
             tipNumText.text = String(tipNum)
+            tallyBill()
         }
-        
     }
     
-    func tallyBill(sender: AnyObject){
+    func tallyBill(){
         print ("tallyBill")
         var splitNum = Double(splitNumText.text!)
         
